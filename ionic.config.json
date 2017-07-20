@@ -1,0 +1,8 @@
+{
+  "name": "ionic-tabs-plus-sidemenu",
+  "app_id": "",
+  "type": "ionic1",
+  "watchPatterns": [
+    "scss/**/*"
+  ]
+}

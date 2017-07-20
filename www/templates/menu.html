@@ -1,0 +1,54 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-positive">
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <!-- TABS -->
+    <ion-tabs>
+      <ion-tab title="Search" icon-off="ion-home" hide-tabs icon-on="ion-home positive" href="#/tab/home">
+        <ion-nav-view name="home-tab"></ion-nav-view>
+      </ion-tab>
+      <ion-tab title="Browse" icon-off="ion-map" icon-on="ion-map positive" href="#/tab/list">
+        <ion-nav-view name="list-tab"></ion-nav-view>
+         <ion-nav-view name="fabContent"></ion-nav-view>
+      </ion-tab>
+      <ion-tab title="Playlist" icon-off="ion-ios-list" icon-on="ion-ios-list positive" href="#/tab/calendar">
+        <ion-nav-view name="calendar-tab"></ion-nav-view>
+      </ion-tab>
+    </ion-tabs>
+
+    </ion-side-menu-content>
+   <!-- Side Menu (left) -->
+
+  <ion-side-menu side="left">
+    <ion-header-bar class="bar-stable">
+      <h1 class="title">Menu</h1>
+    </ion-header-bar>
+    <ion-content>
+      <ion-list>
+        <!-- <ion-item menu-close ng-click="login()">
+          Daftar Persimpangan
+        </ion-item> -->
+        <ion-item menu-close href="#/tab/jalan">
+          Daftar Jalan
+        </ion-item>
+        <ion-item menu-close href="#/tab/wilayah">
+          Daftar Wilayah
+        </ion-item>
+        <ion-item menu-close href="#/app/browse">
+          Panduan
+        </ion-item>
+        <!-- <ion-toggle ng-model="airplaneMode" toggle-class="toggle-calm" ng-click="TrafficLayerON()">
+          Traffic Layer
+        </ion-toggle>
+        <ion-toggle ng-model="onLine" toggle-class="toggle-calm" ng-click="LineON()">
+          Traffic Layer
+        </ion-toggle> -->
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

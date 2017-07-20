@@ -1,0 +1,32 @@
+<ion-view view-title="Rute Perjalan">
+<ion-content ng-class="{expanded:isExpanded}">
+    <ion-list class="list-inset">
+    
+     <!-- <ion-item class="item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="item in location | filter: { lat: whichartist }">
+          <img ng-src="img/1.jpg"
+            alt="{{ item.name }} Photo">
+            <h2>{{ item.name }}</h2>
+          <h3>Latitude: {{ item.lat }}</h2>
+          <h3>Longtitude: {{ item.long }}</h3>
+          <p>{{ item.bio }}</p>
+      </ion-item> -->
+      <ion-item class="item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="item in loca" href="#/tab/street/{{item.lat}}/{{item.long}}/{{item.name}}">
+           <img ng-src="img/1.png"
+        alt="{{ item.name }} Photo">
+      <h2>{{item.name}}</h2>
+      <h3>Latitude: {{item.lat}}</h3>
+      <h3>Longtitue: {{item.long}}</h3>
+      <p>{{item.bio | limitTo: 100}}
+      {{ item.bio.length > 150 ? '&hellip;' : '' }}</p>
+      
+      <i class="ion-arrow-down-a"></i>    
+      </ion-item>
+
+      
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar class="item-input-inset">
+  <div><a ng-href="#/tab/list"><button class="button button-icon padding-left icon ion-chevron-left"></button></a></div>
+  </ion-footer-bar>
+</ion-view>
+

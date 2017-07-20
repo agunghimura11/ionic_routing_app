@@ -1,0 +1,28 @@
+<ion-view view-title="Sistem Pencarian Rute Optimum Taksi menggunakan Particle Swarm Optimization">
+<map on-create="mapCreated(map)"></map>
+
+<ion-footer-bar class="item-input-inset" style="padding: 0;">
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Start :
+    </div>
+    <select ng-model="Value">
+      <option ng-repeat="operator in location"
+            value="{{operator.id}}">{{operator.name}}</option>
+    </select>
+  </label>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Finish :
+    </div>
+    <select ng-model="Value2">
+      <option ng-repeat="operator in location"
+            value="{{operator.id}}">{{operator.name}}</option>
+    </select>
+  </label>
+  
+  <div><button class="button button-icon padding-left icon ion-search" ng-click="getValue(Value, Value2)"></button></div>
+    <!--   <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate"></a>
+    <a ng-click="removeMarker()" class="button button-icon icon ion-ionic"></a> -->
+</ion-footer-bar>
+</ion-view>
