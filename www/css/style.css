@@ -22,12 +22,10 @@ map {
 }/* Empty. Add your own CSS if you like */
 .input-label
 {
-	margin-right: 100px;
+	margin-right: 50px;
+    font-size: 10px;
 }
- .item-select
- {
- 	margin-right: 5px;
- }
+
 
 /* General
 ==================================*/
@@ -130,4 +128,27 @@ p {
 .image {
     height: 500px;
     width: 100%;
+    z-index: -1000000;
+}
+
+.numbering
+{
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    text-align: center;
+    border-radius: 50%;
+    color: white;
+    z-index: 1000000;
+    margin-left: -100px;
+     font-size: 10px; 
+     position: absolute;
+}
+#item img
+{
+    
+}
+.item select
+{
+    font-size: 10px;
 }

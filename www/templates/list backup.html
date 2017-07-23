@@ -10,7 +10,7 @@
     </div>
     <select ng-model="Value">
       <option ng-repeat="operator in location"
-            value="{{operator.node_id}}">{{operator.node_label}}</option>
+            value="{{operator.id}}">{{operator.name}}</option>
     </select>
   </label>
   <label class="item item-input item-select">
@@ -19,7 +19,7 @@
     </div>
     <select ng-model="Value2">
       <option ng-repeat="operator in location"
-            value="{{operator.node_id}}">{{operator.node_label}}</option>
+            value="{{operator.id}}">{{operator.name}}</option>
     </select>
   </label>
  

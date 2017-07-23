@@ -1,36 +1,11 @@
 <ion-view view-title="Nodes">data{{ whichartist }}
   <ion-content ng-class="{expanded:isExpanded}">
-  <!-- <map on-create="mapCreated(map)"></map> -->
-   <!-- <map on-create="streetView(map)"></map> -->
    <map id="mapMarker" on-create="AddMarker()" style="width: 50%; height: 100%;float:left"></map>
    <street id="stretview" on-create="streetView()" style="width: 50%; height: 100%;float:left"></street>
- <!-- <button ng-click="focusinControl.takeTablet()">Call directive function</button>
-    <p>
-      <b>In controller scope:</b>
-      {{focusinControl}}
-    </p>
-    <p>
-      <b>In directive scope:</b>
-      <focusin control="focusinControl"></focusin>
-    </p>
-    <p>
-      <b>Without control object:</b>
-      <focusin></focusin>
-    </p> -->
-    <!-- <ion-list class="list-inset">
-     <ion-item class="item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="item in location | filter: { lat: whichartist }">
-
-          <img class="profile" ng-src="img/1.jpg"
-            alt="{{ item.name }} Photo">
-            <h2>{{ item.name }}</h2>
-          <h3>Latitude: {{ item.lat }}</h2>
-          <h3>Longtitude: {{ item.long }}</h3>
-          <p>{{ item.bio }}</p>
-      </ion-item>
-    </ion-list> -->
   </ion-content>
   <ion-footer-bar class="item-input-inset">
-   <div><a ng-click='back()'><button class="button button-icon padding-left icon ion-chevron-left"></button></a></div>
+
+   <div><a ng-click='back()'><button class="button button-icon padding-left"><i class="ion-chevron-left"></i></button></a></div>
   </ion-footer-bar>
 </ion-view>
 

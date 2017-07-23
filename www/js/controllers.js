@@ -2,11 +2,14 @@
 angular.module('starter.controllers', [])
 
 .controller('MapCtrl', ['$scope', '$http', '$state', '$ionicModal', 'get_data_service', '$ionicLoading', "$rootScope", "$ionicPopup" ,function($scope, $http, $state, $ionicModal, get_data_service, $ionicLoading, $rootScope, $ionicPopup) {
-
-$http.get('http://arisudana.xyz/dijkstra/map/data.json').success(function(data){
+ionic.Platform.ready(function() {
+    // hide the status bar using the StatusBar plugin
+    StatusBar.hide();
+  });
+$http.get('http://localhost/ci2/dijkstra/data').success(function(data){
 // $http.get('http://localhost/json/data.json').success(function(data){
     
-      $scope.location = data.node;
+      $scope.location = data;
       console.log('data: ',$scope.location);
       
 });
@@ -48,7 +51,30 @@ $scope.showPopup = function(string) {
     $scope.map = map;
   };
 
-  
+  $scope.go = function(Value, Value2)
+  {
+    if (Value == null || Value2 == null) {
+      $scope.showPopup();
+    }
+    else
+    {
+      
+      $state.go('tabs.route');
+      $http({
+          url: 'http://localhost/ci2/get_pso3', 
+          method: "GET",
+          params: {start_id: Value, finish_id: Value2}
+        }).success(function(data){
+          //console.log('Berhasil', data);
+          var hasil = JSON.parse("[" + data + "]");
+          $state.go('tabs.route', { result : hasil });
+          //$scope.loca = data; 
+        }).error(function(err){
+          console.log('gagal',err);
+        });
+    }
+      
+ }
   var markers = [];
   $scope.removeMarker = function()
   {
@@ -58,7 +84,7 @@ $scope.showPopup = function(string) {
       markers = [];
       directionsDisplay.setMap(null);
   }
-   $scope.getValue = function(item, item2)
+  $scope.getValue = function(item, item2)
   {
     var string = "";
     if (!item2 && !item) {
@@ -94,7 +120,7 @@ $scope.showPopup = function(string) {
       $scope.item2 = item2; // node akhir
       
       $http({
-        url: 'http://arisudana.xyz/dijkstra/Dijkstrajson.php', 
+        url: 'http://localhost/ci2/get_pso3', 
         method: "GET",
         params: {start_id: $scope.item, finish_id: $scope.item2}
       }).success(function(data){
@@ -103,7 +129,7 @@ $scope.showPopup = function(string) {
         
       }).error(function(err){
         console.log('woey error gagal',err);
-        alert('gagal');
+        alert(err);
       }).finally(function($ionicLoading) { 
         // On both cases hide the loading
       $scope.hide($ionicLoading);  
@@ -140,10 +166,10 @@ $scope.showPopup = function(string) {
       //angular.forEach($scope.item, function(value2, item2){
         for (var i = 0; i < item[0].length; i++) {
           
-          if (String(item[0][i]) === value.id) {
-             $scope.lat_t.push(value.lat);
-             $scope.long_t.push(value.long);
-             AddMarker(value.lat, value.long);
+          if (String(item[0][i]) === value.node_id) {
+             $scope.lat_t.push(value.ltd);
+             $scope.long_t.push(value.lgd);
+             AddMarker(value.ltd, value.lgd);
             
           }
         }
@@ -280,36 +306,60 @@ $scope.showPopup = function(string) {
 
 }]);
 angular.module('second.controllers', [])
-.controller('Get_data', ['$scope', '$http', '$state', '$ionicModal', 'get_data_service', function($scope, $http, $state, $stateParams, get_data_service) {
-    // var array = [];
+.controller('Get_data', ['$scope', '$http', '$state', '$ionicModal', 'get_data_service', '$ionicLoading', "$rootScope", "$ionicPopup" ,function($scope, $http, $state, $ionicModal, get_data_service, $ionicLoading, $rootScope, $ionicPopup) {
+    
     var data1;
     var data2;
-    
-    // $scope.loca = get_data_service.getArray(1, 2);
+      $scope.showPopup = function() {
+        $scope.data = {}
+      
+        // Custom popup
+        var myPopup = $ionicPopup.show({
+           
+           title: 'Peringatan!',
+           subTitle: "Belum memilih titik awal dan akhir!",
+           scope: $scope,
+        
+           buttons: [
+              { text: 'OK' }
+           ]
+        });
+
+        myPopup.then(function(res) {
+           console.log('Tapped!', res);
+        });    
+     };
+   // untuk menghilangkan tombol
+   console.log('data gess: ',get_data_service.get_params1());
+
     $scope.go = function()
     {
-        
+      if (get_data_service.get_params1() == null) {
+        $scope.showPopup();
+      }
+      else
+      {
         var data = get_data_service.get_params1();
         var data2 = get_data_service.get_params2();
         console.log('data1',data);
         console.log('data2',data2);
         item1 = get_data_service.get_params1();
         item2 = get_data_service.get_params2();
-    
-    
-    $state.go('tabs.route');
-    $http({
-        url: 'http://arisudana.xyz/dijkstra/Dijkstrajson.php', 
-        method: "GET",
-        params: {start_id: item1, finish_id: item2}
-      }).success(function(data){
-        //console.log('Berhasil', data);
-        var hasil = JSON.parse("[" + data + "]");
-        $state.go('tabs.route', { result : hasil });
-        //$scope.loca = data; 
-      }).error(function(err){
-        console.log('gagal',err);
-      });
+        $state.go('tabs.route');
+        $http({
+            url: 'http://localhost/ci2/get_pso3', 
+            method: "GET",
+            params: {start_id: item1, finish_id: item2}
+          }).success(function(data){
+            //console.log('Berhasil', data);
+            var hasil = JSON.parse("[" + data + "]");
+            $state.go('tabs.route', { result : hasil });
+            //$scope.loca = data; 
+          }).error(function(err){
+            console.log('gagal',err);
+          });
+      }
+        
    }
 }])
 .controller('View_edge', ['$http', '$scope', function($http, $scope){
@@ -334,7 +384,7 @@ angular.module('second.controllers', [])
 }])
 angular.module('third.controllers', [])
 .controller('Hasil_data', ['$scope', '$http','$state', '$stateParams', 'get_data_service', function($scope, $http, $state, $stateParams, get_data_service) {
-    
+  $scope.num = 0;
   var hasil = JSON.parse("[" + $stateParams.result + "]")
   $scope.loca = [];
   $http.get('http://arisudana.xyz/dijkstra/map/data.json').success(function(data){
@@ -343,13 +393,16 @@ angular.module('third.controllers', [])
       for (var j = 0; j < $stateParams.result.length; j++) {
         if (data.node[i].id == hasil[j]) {
              $scope.loca[j] = data.node[i];
+
          }
          
       }
           
       }
 
+
   });
+  
 }])
 .controller('Street_view', ['$scope', '$http','$state', '$stateParams', 'get_data_service', '$window', function($scope, $http, $state, $stateParams, get_data_service, $window) {
   

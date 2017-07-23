@@ -40,19 +40,28 @@ angular.module('starter', ['ionic', 'ionic-material', 'starter.service',  'start
     }
   })
 
+  // .state('tabs.list', {
+  //   url: "/list",
+  //   views: {
+  //     'list-tab': {
+  //       templateUrl: "templates/list.html",
+  //       controller: 'MapCtrl'
+  //     },
+  //     'fabContent': {
+  //       template: '<button ng-click="go()" id="fab-profile" class="button button-fab button-fab-bottom-left button-positive"><i class="icon ion-model-s"></i></button>',
+  //       controller: 'Get_data'    
+  //       }
+  //     }
+    
+  // })
   .state('tabs.list', {
     url: "/list",
     views: {
       'list-tab': {
         templateUrl: "templates/list.html",
         controller: 'MapCtrl'
-      },
-      'fabContent': {
-        template: '<button ng-click="go()" id="fab-profile" class="button button-fab button-fab-bottom-left button-positive"><i class="icon ion-model-s"></i></button>',
-        controller: 'Get_data'    
-        }
       }
-    
+    } 
   })
   .state('tabs.calendar', {
       url: "/calendar",
@@ -111,7 +120,7 @@ angular.module('starter', ['ionic', 'ionic-material', 'starter.service',  'start
   });
   // if none of the above states are matched, use this as the fallback
 
-  $urlRouterProvider.otherwise('/tab/home');
+  $urlRouterProvider.otherwise('/tab/list');
 })
 .config(['$ionicConfigProvider', function($ionicConfigProvider){
     $ionicConfigProvider.tabs.position('bottom');
