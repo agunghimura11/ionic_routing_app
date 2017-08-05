@@ -214,7 +214,7 @@ $scope.showPopup = function(string) {
   //   AddLine($scope.lat_t, $scope.long_t);
     
   // }
-  function AddMarker(lat, long, color)
+  function AddMarker(lat, long)
   {
     var contentString = '<div id="content">'+
       '<div id="siteNotice">'+
@@ -239,17 +239,7 @@ $scope.showPopup = function(string) {
     var infowindow = new google.maps.InfoWindow({
       content: contentString
     });
-    if (color == 'BLUE') {
-      var image = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
-    }
-    else if (color == 'RED') {
-      var image = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
-    }
-    else
-    {
-      var image = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
-    }
-
+    var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
     $scope.marker = new google.maps.Marker({
         animation: google.maps.Animation.DROP,
         position: new google.maps.LatLng(lat, long),
@@ -268,11 +258,8 @@ $scope.showPopup = function(string) {
   }
 
   var directionsService = new google.maps.DirectionsService;
-  var directionsDisplay = new google.maps.DirectionsRenderer({
-    suppressMarkers: true
-  });
-  //var directionsDisplay = new google.maps.DirectionsRenderer;
-  var marker_colour = 'RED';
+  var directionsDisplay = new google.maps.DirectionsRenderer;
+
   function AddLine(lat, long)
     {
       
@@ -289,31 +276,25 @@ $scope.showPopup = function(string) {
       var request = {
             travelMode: google.maps.TravelMode.DRIVING
       };
-      alert(result.length);
       for(i = 0; i < result.length; i++)
       {
         
-        
+        //AddMarker(result[i], result2[i]);
         
         if (i == 0)
         {
           request.origin = {lat:result[i], lng:result2[i]};
-          marker_colour = 'RED';
         }
          else if (i == result.length - 1) {
           request.destination = {lat:result[i], lng:result2[i]};
-          marker_colour = 'GREEN';
          }
          else {
-          marker_colour = 'BLUE';
           if (!request.waypoints) request.waypoints = [];
           request.waypoints.push({
             location: {lat:result[i], lng:result2[i]},
             stopover: true
           });
-        } 
-
-        AddMarker(result[i], result2[i], marker_colour); 
+        }  
       }
       directionsService.route(request, function(response, status) {
         if (status === google.maps.DirectionsStatus.OK) {
