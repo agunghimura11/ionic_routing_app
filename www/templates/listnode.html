@@ -7,14 +7,12 @@
     <ion-item ng-class="{'star': item.star}" 
     ng-repeat='item in location | filter: query'
     class="item-thumbnail-left item-icon-right
-      item-text-wrap" href="#/tab/calendar/{{item.lat}}">
-      <img ng-src="img/1.jpg"
+      item-text-wrap card" href="#/tab/street/{{item.ltd}}/{{item.lgd}}/{{item.node_label}}">
+      <img ng-src="img/1.png"
         alt="{{ item.node_label }} Photo">
-      <h2>{{item.name}}</h2>
+      <h2>{{item.node_label}}</h2>
       <h3>Latitude: {{item.ltd}}</h3>
       <h3>Longtitue: {{item.lgd}}</h3>
-      <p>{{item.wilayah_id | limitTo: 100}}
-      {{ item.bio.length > 150 ? '&hellip;' : '' }}</p>
       <button class="button button-clear icon ion-star button-assertive"
         ng-click="toggleStar(item)"
         ng-show="item.star"></button>
