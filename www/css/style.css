@@ -16,6 +16,7 @@ map {
 	background-color: rgba(52, 152, 219,1.0); 
 	color: white;
 	text-align: center;
+    margin: 0; overflow: hidden
 }
 .gambar
 {

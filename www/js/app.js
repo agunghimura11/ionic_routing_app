@@ -120,7 +120,7 @@ angular.module('starter', ['ionic', 'ionic-material', 'starter.service',  'start
   });
   // if none of the above states are matched, use this as the fallback
 
-  $urlRouterProvider.otherwise('/tab/list');
+  $urlRouterProvider.otherwise('/tab/home');
 })
 .config(['$ionicConfigProvider', function($ionicConfigProvider){
     $ionicConfigProvider.tabs.position('bottom');

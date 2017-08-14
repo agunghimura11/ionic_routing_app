@@ -1,15 +1,44 @@
 <ion-view hide-nav-bar="true">
-  <ion-content class="splash branding">
+  <ion-content class="splash branding" scroll="false">
     <div class="body">
     <div class="tagline" style="font-size: 24px;margin-top: 20px;">Panduan</div>
       <img src="img/input.png">
       <div class="tagline" style="margin-left: 10px;">1. Pilih node awal dan akhir pada spinner</div>
-      <img style="height: 100px; width: 100px;" src="img/Maps-Map-icon.png">
+      <img style="height: 50px; width: 50px;" src="img/Maps-Map-icon.png">
       <div class="tagline">2. Untuk mendapatkan hasil pencarian rute pada tampilan Google Maps</div>
-      <img style="height: 100px; width: 100px;" src="img/direction.png">
+      <img style="height: 50px; width: 50px;" src="img/direction.png">
       <div class="tagline">3. Untuk mendapatkan hasil pencarian rute pada tampilan Infografik</div>
+      <img style="height: 20px; width: 20px;" src="http://maps.google.com/mapfiles/ms/icons/red-dot.png">
+      <small>Titik awal</small>
+      <img style="height: 20px; width: 20px;" src="http://maps.google.com/mapfiles/ms/icons/green-dot.png">
+      <small>Titik akhir</small>
+      <img style="height: 20px; width: 20px;" src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png">
+      <small>Titik yang dilewati</small>
+      <div><h4></h4></div>
+      <ion-footer-bar class="item-input-inset" style="padding: 0;">
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Start :
     </div>
-    
+    <select ng-model="Value">
+      <option ng-repeat="operator in location"
+            value="{{operator.node_id}}">{{operator.node_label}}</option>
+    </select>
+  </label>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Finish :
+    </div>
+    <select ng-model="Value2">
+      <option ng-repeat="operator in location"
+            value="{{operator.node_id}}">{{operator.node_label}}</option>
+    </select>
+  </label>
+
+</ion-footer-bar>
+ 
+    </div>
+     <button ng-click="go(Value, Value2)" id="fab-profile" class="button button-fab button-fab-bottom-right button-light"><i class="icon ion-navigate" style="color: rgb(52,108,210);"></i><span></span></button>
     </div>
   </ion-content>
 </ion-view>

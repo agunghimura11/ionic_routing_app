@@ -2,10 +2,10 @@
 angular.module('starter.controllers', [])
 
 .controller('MapCtrl', ['$scope', '$http', '$state', '$ionicModal', 'get_data_service', '$ionicLoading', "$rootScope", "$ionicPopup" ,function($scope, $http, $state, $ionicModal, get_data_service, $ionicLoading, $rootScope, $ionicPopup) {
-ionic.Platform.ready(function() {
-    // hide the status bar using the StatusBar plugin
-    StatusBar.hide();
-  });
+// ionic.Platform.ready(function() {
+//     // hide the status bar using the StatusBar plugin
+//     StatusBar.hide();
+//   });
 $http.get('http://localhost/ci2/dijkstra/data').success(function(data){
 // $http.get('http://localhost/json/data.json').success(function(data){
 
@@ -43,14 +43,42 @@ $scope.showPopup = function(string) {
     });    
  };
   $scope.airplaneMode = false;
+  $scope.TrafficLayerON = function()
+  {
+
+    
+    $scope.trafficLayer.setMap($scope.map);
+    $scope.mapCreated($scope.map);
+    // $scope.trafficLayer = new google.maps.TrafficLayer(); 
+      
+    //   $scope.trafficLayer.setMap($scope.map);
+    // alert($scope.airplaneMode);
+    if ($scope.airplaneMode == false) {
+        $scope.airplaneMode = true;
+    } else
+        $scope.airplaneMode = false;
+
+    // if ($scope.airplaneMode == true) {
+       
+    // }
+    // else
+    // {
+    //   $scope.trafficLayer.setMap(null);
+    // } 
+    // console.log('gas');
+  }
   console.log('params',$state.params.aId);
   $scope.whichartist = $state.params.aId;
-
+  $scope.trafficLayer = new google.maps.TrafficLayer(); 
   $scope.mapCreated = function(map) {
-   
+    
     $scope.map = map;
-  };
+    if ($scope.airplaneMode == true) {
+        $scope.trafficLayer.setMap($scope.map);
+    }
 
+  };
+   
   $scope.go = function(Value, Value2)
   {
 
@@ -140,24 +168,8 @@ $scope.showPopup = function(string) {
     });
   }
   }
-  $scope.trafficLayer = new google.maps.TrafficLayer(); 
-  $scope.TrafficLayerON = function()
-  {
-    if ($scope.airplaneMode == false) {
-                $scope.airplaneMode = true;
-            } else
-                $scope.airplaneMode = false;
+ 
 
-    if ($scope.airplaneMode == true) {
-      
-      $scope.trafficLayer.setMap($scope.map);
-    }
-    else
-    {
-      $scope.trafficLayer.setMap(null);
-    } 
-    console.log('gas');
-  }
   function GetLocation(item)
   {
 
