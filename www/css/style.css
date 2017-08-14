@@ -5,6 +5,10 @@ map {
   width: 100%;
   height: 100%;
 }
+.body
+{
+    padding: 10px;
+}
 .scroll {
   height: 100%;
 }
@@ -13,12 +17,17 @@ map {
 	color: white;
 	text-align: center;
 }
+.gambar
+{
+    max-width: 100px;
+    max-height: 100px;
+}
 .branding img
 {
 	max-width: 200px;
 	max-height: 200px;
 	margin-top: 50px;
-	margin-bottom: 160px;
+	margin-bottom: 10px;
 }/* Empty. Add your own CSS if you like */
 .input-label
 {

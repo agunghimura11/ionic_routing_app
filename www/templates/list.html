@@ -2,7 +2,7 @@
 <map on-create="mapCreated(map)"></map>
 <button ng-click="getValue(Value, Value2)" id="fab-profile" class="button button-fab button-fab-bottom-left button-positive"><i class="icon ion-map"></i></button>
 
-<button ng-click="go(Value, Value2)" id="fab-profile" class="button button-fab button-fab-bottom-right button-light"><i class="icon ion-model-s" style="color: rgb(52,108,210);"></i><span></span></button>
+<button ng-click="go(Value, Value2)" id="fab-profile" class="button button-fab button-fab-bottom-right button-light"><i class="icon ion-navigate" style="color: rgb(52,108,210);"></i><span></span></button>
 <ion-footer-bar class="item-input-inset" style="padding: 0;">
   <label class="item item-input item-select">
     <div class="input-label">
@@ -22,8 +22,6 @@
             value="{{operator.node_id}}">{{operator.node_label}}</option>
     </select>
   </label>
- 
-    <!--   <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate"></a>
-    <a ng-click="removeMarker()" class="button button-icon icon ion-ionic"></a> -->
+
 </ion-footer-bar>
 </ion-view>

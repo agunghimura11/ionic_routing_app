@@ -6,7 +6,7 @@ ionic.Platform.ready(function() {
     // hide the status bar using the StatusBar plugin
     StatusBar.hide();
   });
-$http.get('http://arisudana.xyz/ci2/dijkstra/data').success(function(data){
+$http.get('http://arisudana.web.id/ci2/dijkstra/data').success(function(data){
 // $http.get('http://localhost/json/data.json').success(function(data){
     
       $scope.location = data;
@@ -53,6 +53,7 @@ $scope.showPopup = function(string) {
 
   $scope.go = function(Value, Value2)
   {
+
     if (Value == null || Value2 == null) {
       $scope.showPopup();
     }
@@ -61,12 +62,13 @@ $scope.showPopup = function(string) {
       
       $state.go('tabs.route');
       $http({
-          // url: 'http://arisudana.xyz/ci2/get_pso3',
-          url: 'http://arisudana.xyz/ci2/get_dijkstra/get', 
+          url: 'http://localhost/ci2/get_mobile',
+          //url: 'http://localhost/ci2/get_dijkstra/get', 
           method: "GET",
           params: {start_id: Value, finish_id: Value2}
         }).success(function(data){
           //console.log('Berhasil', data);
+
           var hasil = JSON.parse("[" + data + "]");
           $state.go('tabs.route', { result : hasil });
           //$scope.loca = data; 
@@ -121,8 +123,8 @@ $scope.showPopup = function(string) {
       $scope.item2 = item2; // node akhir
       
       $http({
-        // url: 'http://arisudana.xyz/ci2/get_pso3', 
-        url:"http://arisudana.xyz/ci2/get_dijkstra/get",
+        //url: 'http://localhost/ci2/get_pso3', 
+        url:"http://arisudana.web.id/ci2/get_dijkstra/get",
         method: "GET",
         params: {start_id: $scope.item, finish_id: $scope.item2}
       }).success(function(data){
@@ -138,6 +140,7 @@ $scope.showPopup = function(string) {
     });
   }
   }
+  $scope.trafficLayer = new google.maps.TrafficLayer(); 
   $scope.TrafficLayerON = function()
   {
     if ($scope.airplaneMode == false) {
@@ -146,7 +149,7 @@ $scope.showPopup = function(string) {
                 $scope.airplaneMode = false;
 
     if ($scope.airplaneMode == true) {
-      $scope.trafficLayer = new google.maps.TrafficLayer(); 
+      
       $scope.trafficLayer.setMap($scope.map);
     }
     else
@@ -165,25 +168,14 @@ $scope.showPopup = function(string) {
 
     console.log('Get Location Success');
     angular.forEach($scope.location, function(value, key){
-      //angular.forEach($scope.item, function(value2, item2){
         for (var i = 0; i < item[0].length; i++) {
           
           if (String(item[0][i]) === value.node_id) {
              $scope.lat_t.push(value.ltd);
              $scope.long_t.push(value.lgd);
-             //AddMarker(value.ltd, value.lgd);
             
           }
         }
-          
-          // if (a != item.length - 1) {
-          //     a = a + 1;
-
-          // }
-          
-          
-       //})
-      
     });
     AddLine($scope.lat_t, $scope.long_t);
     
@@ -217,24 +209,6 @@ $scope.showPopup = function(string) {
   function AddMarker(lat, long, color)
   {
     var contentString = '<div id="content">'+
-      '<div id="siteNotice">'+
-      '</div>'+
-      '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-      '<div id="bodyContent">'+
-      '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-      'sandstone rock formation in the southern part of the '+
-      'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-      'south west of the nearest large town, Alice Springs; 450&#160;km '+
-      '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-      'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-      'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-      'Aboriginal people of the area. It has many springs, waterholes, '+
-      'rock caves and ancient paintings. Uluru is listed as a World '+
-      'Heritage Site.</p>'+
-      '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-      'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-      '(last visited June 22, 2009).</p>'+
-      '</div>'+
       '</div>';
     var infowindow = new google.maps.InfoWindow({
       content: contentString
@@ -289,7 +263,7 @@ $scope.showPopup = function(string) {
       var request = {
             travelMode: google.maps.TravelMode.DRIVING
       };
-      alert(result.length);
+     
       for(i = 0; i < result.length; i++)
       {
         
@@ -356,6 +330,7 @@ angular.module('second.controllers', [])
 
     $scope.go = function()
     {
+      alert('jostt');
       if (get_data_service.get_params1() == null) {
         $scope.showPopup();
       }
@@ -387,7 +362,7 @@ angular.module('second.controllers', [])
 .controller('View_edge', ['$http', '$scope', function($http, $scope){
 
   
-  $http.get('http://localhost/ci2/dijkstra/load3').success(function(data){
+  $http.get('http://arisudana.web.id/ci2/dijkstra/load3').success(function(data){
       $scope.edge = data;
       console.log($scope.edge);
   });
@@ -397,7 +372,7 @@ angular.module('second.controllers', [])
 .controller('View_wilayah', ['$http', '$scope', function($http, $scope){
 
   
-  $http.get('http://localhost/ci2/dijkstra/load2').success(function(data){
+  $http.get('http://arisudana.web.id/ci2/dijkstra/load2').success(function(data){
       $scope.wilayah = data;
       console.log($scope.wilayah);
   });
@@ -405,24 +380,34 @@ angular.module('second.controllers', [])
 
 }])
 angular.module('third.controllers', [])
-.controller('Hasil_data', ['$scope', '$http','$state', '$stateParams', 'get_data_service', function($scope, $http, $state, $stateParams, get_data_service) {
+.controller('Hasil_data', ['$scope', '$http','$state', '$stateParams', 'get_data_service', "$ionicLoading", function($scope, $http, $state, $stateParams, get_data_service, $ionicLoading) {
+  
+  $scope.show = function() {
+    $ionicLoading.show({
+      template: '<p>Loading...</p><ion-spinner></ion-spinner>'
+    });
+  };
+
+  $scope.hide = function(){
+        $ionicLoading.hide();
+  };
+
   $scope.num = 0;
   var hasil = JSON.parse("[" + $stateParams.result + "]")
   $scope.loca = [];
   $http.get('http://arisudana.xyz/dijkstra/map/data.json').success(function(data){
+     $scope.show($ionicLoading);
      for (var i = 0; i < data.node.length; i++){
-      
-      for (var j = 0; j < $stateParams.result.length; j++) {
-        if (data.node[i].id == hasil[j]) {
-             $scope.loca[j] = data.node[i];
-
-         }
-         
+        for (var j = 0; j < $stateParams.result.length; j++) {
+          if (data.node[i].id == hasil[j]) {
+               $scope.loca[j] = data.node[i];
+           }      
+        }
       }
-          
-      }
-
-
+    }).error(function(error){
+      alert('error');
+    }).finally(function($ionicLoading){
+    $scope.hide($ionicLoading);  
   });
   
 }])

@@ -9,9 +9,9 @@
 
     <!-- TABS -->
     <ion-tabs>
-      <!-- <ion-tab title="Search" icon-off="ion-information" hide-tabs icon-on="ion-home positive" href="#/tab/home">
+      <ion-tab title="Search" icon-off="ion-help" hide-tabs icon-on="ion-help positive" href="#/tab/home">
         <ion-nav-view name="home-tab"></ion-nav-view>
-      </ion-tab> -->
+      </ion-tab>
       <ion-tab title="Browse" icon-off="ion-map" icon-on="ion-map positive" href="#/tab/list">
         <ion-nav-view name="list-tab"></ion-nav-view>
          <ion-nav-view name="fabContent"></ion-nav-view>
@@ -30,24 +30,13 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <!-- <ion-item menu-close ng-click="login()">
-          Daftar Persimpangan
-        </ion-item> -->
-        <!-- <ion-item menu-close href="#/tab/jalan">
-          Daftar Jalan
-        </ion-item>
-        <ion-item menu-close href="#/tab/wilayah">
-          Daftar Wilayah
-        </ion-item> -->
-        <ion-item menu-close href="#/app/browse">
+        <ion-item menu-close href="#/tab/home">
           Panduan
         </ion-item>
-        <!-- <ion-toggle ng-model="airplaneMode" toggle-class="toggle-calm" ng-click="TrafficLayerON()">
+        <ion-toggle ng-model="airplaneMode" toggle-class="toggle-calm" ng-click="TrafficLayerON()">
           Traffic Layer
         </ion-toggle>
-        <ion-toggle ng-model="onLine" toggle-class="toggle-calm" ng-click="LineON()">
-          Traffic Layer
-        </ion-toggle> -->
+        
       </ion-list>
     </ion-content>
   </ion-side-menu>
