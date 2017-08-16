@@ -2,11 +2,11 @@
 angular.module('starter.controllers', [])
 
 .controller('MapCtrl', ['$scope', '$http', '$state', '$ionicModal', 'get_data_service', '$ionicLoading', "$rootScope", "$ionicPopup" ,function($scope, $http, $state, $ionicModal, get_data_service, $ionicLoading, $rootScope, $ionicPopup) {
-// ionic.Platform.ready(function() {
-//     // hide the status bar using the StatusBar plugin
-//     StatusBar.hide();
-//   });
-$http.get('http://arisudana.web.id/ci2/dijkstra/data').success(function(data){
+ionic.Platform.ready(function() {
+    // hide the status bar using the StatusBar plugin
+    StatusBar.hide();
+  });
+$http.get('http://localhost/ci2/dijkstra/data').success(function(data){
 // $http.get('http://localhost/json/data.json').success(function(data){
 
       $scope.location = data;
@@ -30,7 +30,7 @@ $scope.showPopup = function(string) {
     var myPopup = $ionicPopup.show({
        
        title: 'Peringatan!',
-       subTitle: "Persimpangan Awal atau Akhir Tidak Boleh Kosong!",
+       subTitle: string + " Tidak Boleh Kosong!",
        scope: $scope,
     
        buttons: [
@@ -43,42 +43,14 @@ $scope.showPopup = function(string) {
     });    
  };
   $scope.airplaneMode = false;
-  $scope.TrafficLayerON = function()
-  {
-
-    
-    $scope.trafficLayer.setMap($scope.map);
-    $scope.mapCreated($scope.map);
-    // $scope.trafficLayer = new google.maps.TrafficLayer(); 
-      
-    //   $scope.trafficLayer.setMap($scope.map);
-    // alert($scope.airplaneMode);
-    if ($scope.airplaneMode == false) {
-        $scope.airplaneMode = true;
-    } else
-        $scope.airplaneMode = false;
-
-    // if ($scope.airplaneMode == true) {
-       
-    // }
-    // else
-    // {
-    //   $scope.trafficLayer.setMap(null);
-    // } 
-    // console.log('gas');
-  }
   console.log('params',$state.params.aId);
   $scope.whichartist = $state.params.aId;
-  $scope.trafficLayer = new google.maps.TrafficLayer(); 
-  $scope.mapCreated = function(map) {
-    
-    $scope.map = map;
-    if ($scope.airplaneMode == true) {
-        $scope.trafficLayer.setMap($scope.map);
-    }
 
-  };
+  $scope.mapCreated = function(map) {
    
+    $scope.map = map;
+  };
+
   $scope.go = function(Value, Value2)
   {
 
@@ -119,16 +91,16 @@ $scope.showPopup = function(string) {
   {
     var string = "";
     if (!item2 && !item) {
-      string = "Persimpangan Awal dan Akhir";
+      string = "Titik Awal dan Akhir";
       $scope.showPopup(string);
     }
     else if (!item) {
-      string = "Persimpangan Awal";
+      string = "Titik Awal";
       $scope.showPopup(string);
     }
     else if(!item2)
     {
-      string = "Persimpangan Akhir";
+      string = "Titik Akhir";
       $scope.showPopup(string);
     }
 
@@ -168,8 +140,24 @@ $scope.showPopup = function(string) {
     });
   }
   }
- 
+  $scope.trafficLayer = new google.maps.TrafficLayer(); 
+  $scope.TrafficLayerON = function()
+  {
+    if ($scope.airplaneMode == false) {
+                $scope.airplaneMode = true;
+            } else
+                $scope.airplaneMode = false;
 
+    if ($scope.airplaneMode == true) {
+      
+      $scope.trafficLayer.setMap($scope.map);
+    }
+    else
+    {
+      $scope.trafficLayer.setMap(null);
+    } 
+    console.log('gas');
+  }
   function GetLocation(item)
   {
 
@@ -177,8 +165,7 @@ $scope.showPopup = function(string) {
     $scope.item = item;
     $scope.lat_t = [];
     $scope.long_t = [];
-    $scope.name = [];
-    $scope.id = [];
+
     console.log('Get Location Success');
     angular.forEach($scope.location, function(value, key){
         for (var i = 0; i < item[0].length; i++) {
@@ -186,25 +173,42 @@ $scope.showPopup = function(string) {
           if (String(item[0][i]) === value.node_id) {
              $scope.lat_t.push(value.ltd);
              $scope.long_t.push(value.lgd);
-              $scope.name.push(value.node_label);
-              $scope.id.push(value.node_id);
+            
           }
         }
     });
-    AddLine($scope.lat_t, $scope.long_t, $scope.name, $scope.id);
+    AddLine($scope.lat_t, $scope.long_t);
     
   }
 
-  function AddMarker(lat, long, color, name, id)
+  //  function GetLocation(item)
+  // {
+  //   var a = 0;
+  //   $scope.item = item;
+  //   $scope.lat_t = [];
+  //   $scope.long_t = [];
+
+  //   angular.forEach($scope.location, function(value, item){
+  //     angular.forEach($scope.item, function(value2, item2){
+
+  //         if (String(value2[a]) === value.node_id) {
+  //            $scope.lat_t.push(value.ltd);
+  //            $scope.long_t.push(value.lgd);
+  //            AddMarker(value.ltd, value.lgd);
+             
+  //            //console.log(value);
+  //            console.log(value2[item]);
+  //         }
+  //          a = a + 1;
+  //      })
+      
+  //   });
+  //   AddLine($scope.lat_t, $scope.long_t);
+    
+  // }
+  function AddMarker(lat, long, color)
   {
     var contentString = '<div id="content">'+
-      '<div id="siteNotice">'+
-      '</div>'+
-      '<p><b>ID</b> :' +id+
-      '<p><b>Nama Persimpangan</b> :' +name+
-      '</p><p><b>Latitude</b>          :' +lat+
-      '</p><p><b>Longitute</b>     :' +long+
-      '</p></div>'+
       '</div>';
     var infowindow = new google.maps.InfoWindow({
       content: contentString
@@ -231,7 +235,7 @@ $scope.showPopup = function(string) {
     });
     $scope.marker.addListener('click', function() {
           infowindow.open($scope.map, $scope.marker);
-    });
+        });
 
     markers.push($scope.marker);
     
@@ -243,7 +247,7 @@ $scope.showPopup = function(string) {
   });
   //var directionsDisplay = new google.maps.DirectionsRenderer;
   var marker_colour = 'RED';
-  function AddLine(lat, long, name, id)
+  function AddLine(lat, long)
     {
       
       
@@ -262,7 +266,9 @@ $scope.showPopup = function(string) {
      
       for(i = 0; i < result.length; i++)
       {
-         
+        
+        
+        
         if (i == 0)
         {
           request.origin = {lat:result[i], lng:result2[i]};
@@ -281,7 +287,7 @@ $scope.showPopup = function(string) {
           });
         } 
 
-        AddMarker(result[i], result2[i], marker_colour, name[i], id[i]); 
+        AddMarker(result[i], result2[i], marker_colour); 
       }
       directionsService.route(request, function(response, status) {
         if (status === google.maps.DirectionsStatus.OK) {
@@ -307,7 +313,7 @@ angular.module('second.controllers', [])
         var myPopup = $ionicPopup.show({
            
            title: 'Peringatan!',
-           subTitle: "Belum memilih persimpangan awal dan akhir!",
+           subTitle: "Belum memilih titik awal dan akhir!",
            scope: $scope,
         
            buttons: [
@@ -338,7 +344,7 @@ angular.module('second.controllers', [])
         item2 = get_data_service.get_params2();
         $state.go('tabs.route');
         $http({
-            url: 'http://arisudana.web.id/ci2/get_pso3', 
+            url: 'http://localhost/ci2/get_pso3', 
             method: "GET",
             params: {start_id: item1, finish_id: item2}
           }).success(function(data){
@@ -389,13 +395,13 @@ angular.module('third.controllers', [])
   $scope.num = 0;
   var hasil = JSON.parse("[" + $stateParams.result + "]")
   $scope.loca = [];
-  $http.get('http://arisudana.web.id/ci2/dijkstra/data').success(function(data){
-     
+  $http.get('http://arisudana.xyz/dijkstra/map/data.json').success(function(data){
+     alert(data[1].node_id);
      $scope.show($ionicLoading);
-     for (var i = 0; i < data.length; i++){
+     for (var i = 0; i < data.node.length; i++){
         for (var j = 0; j < $stateParams.result.length; j++) {
-          if (data[i].node_id == hasil[j]) {
-               $scope.loca[j] = data[i];
+          if (data.node[i].id == hasil[j]) {
+               $scope.loca[j] = data.node[i];
            }      
         }
       }
@@ -413,42 +419,42 @@ angular.module('third.controllers', [])
   //   $scope.map = map;
   // }
 
-  $scope.AddMarker = function()
-  {
-    var lat = parseFloat($state.params.lat); 
-    var lng = parseFloat($state.params.lng);
-    var name = $state.params.name;
+  // $scope.AddMarker = function()
+  // {
+  //   var lat = parseFloat($state.params.lat); 
+  //   var lng = parseFloat($state.params.lng);
+  //   var name = $state.params.name;
     
-    var contentString = '<div id="content">'+
-      '<div id="siteNotice">'+
-      '</div>'+
-      '<p><b>Nama Persimpangan</b> :' +name+
-      '</p><p><b>Latitude</b>          :' +lat+
-      '</p><p><b>Longitute</b>     :' +lng+
-      '</p></div>'+
-      '</div>';
-    var infowindow = new google.maps.InfoWindow({
-      content: contentString
-    });
+  //   var contentString = '<div id="content">'+
+  //     '<div id="siteNotice">'+
+  //     '</div>'+
+  //     '<p><b>Nama Persimpangan</b> :' +name+
+  //     '</p><p><b>Latitude</b>          :' +lat+
+  //     '</p><p><b>Longitute</b>     :' +lng+
+  //     '</p></div>'+
+  //     '</div>';
+  //   var infowindow = new google.maps.InfoWindow({
+  //     content: contentString
+  //   });
 
-    var mapOptions = {
-          center: new google.maps.LatLng(lat, lng), 
-          zoom: 14,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    var map = new google.maps.Map(document.getElementById("mapMarker"), mapOptions);
+  //   var mapOptions = {
+  //         center: new google.maps.LatLng(lat, lng), 
+  //         zoom: 14,
+  //         mapTypeId: google.maps.MapTypeId.ROADMAP
+  //   };
+  //   var map = new google.maps.Map(document.getElementById("mapMarker"), mapOptions);
     
-    $scope.marker = new google.maps.Marker({
-        position: new google.maps.LatLng(lat, lng),
-        map: map,
-        title: 'Node!'
-    }, function(err) {
-        console.err(err);
-    });
-    // $scope.marker.addListener('click', function() {
-          infowindow.open($scope.map, $scope.marker);
-        // });
-  }
+  //   $scope.marker = new google.maps.Marker({
+  //       position: new google.maps.LatLng(lat, lng),
+  //       map: map,
+  //       title: 'Node!'
+  //   }, function(err) {
+  //       console.err(err);
+  //   });
+  //   // $scope.marker.addListener('click', function() {
+  //         infowindow.open($scope.map, $scope.marker);
+  //       // });
+  // }
   $scope.back = function()
   {
      $window.history.back();

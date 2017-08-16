@@ -25,9 +25,9 @@ map {
 }
 .branding img
 {
-	max-width: 200px;
-	max-height: 200px;
-	margin-top: 50px;
+	max-width: 100px;
+	max-height: 100px;
+	margin-top: 20px;
 	margin-bottom: 10px;
 }/* Empty. Add your own CSS if you like */
 .input-label
@@ -120,6 +120,10 @@ p {
 #fab-profile
 {
     margin-bottom: 80px;
+}
+#fab-profile1
+{
+    margin-bottom: 40px;
 }
 .ion-arrow-down-a
 {
